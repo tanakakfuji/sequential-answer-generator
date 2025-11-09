@@ -1,3 +1,12 @@
+/data/queries/*.csv
+/data/prompts/*.txt
+outputs/
+
+!/data/queries/sample_query.csv
+!/data/prompts/sample_prompt.txt
+
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
