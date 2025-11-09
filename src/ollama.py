@@ -1,7 +1,5 @@
 import os
-import time
 from dotenv import load_dotenv
-from collections import defaultdict
 from ollama import chat, RequestError, ResponseError
 
 load_dotenv(override=True)
