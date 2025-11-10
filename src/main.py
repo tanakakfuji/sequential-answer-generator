@@ -13,8 +13,9 @@ def main():
 
   system_prompt = load_text(args.prompt)
   query_data = load_csv(args.query)
+  row_count = len(query_data) - 1
   queries_list = _build_data(query_data)
-  outputs, error_count = generate(args.client, system_prompt, queries_list)
+  outputs, error_count = generate(args.client, system_prompt, queries_list, row_count)
   save_csv(outputs, f'outputs/{args.output_dir}', 'results.csv')
   print(f'エラー件数: {error_count}')
   print(f'outputs/{args.output_dir} に評価結果を出力しました')
