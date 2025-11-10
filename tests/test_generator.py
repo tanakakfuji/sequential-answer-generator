@@ -17,7 +17,8 @@ QUERIES_LIST = [
 def test_generate_without_errors():
   with(patch('src.generator._execute_requests', return_value=[{'text': 'テスト回答', 'status': 'success'} for _ in range(len(QUERIES_LIST[0]))]) as mock_execute):
     client = 'openai'
-    assert generate(client, SYSTEM_PROMPT, QUERIES_LIST) == (
+    row_count = sum(len(inner_list) for inner_list in QUERIES_LIST)
+    assert generate(client, SYSTEM_PROMPT, QUERIES_LIST, row_count) == (
       [
         {'conversation_id': '1', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'}, {'conversation_id': '1', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'},
         {'conversation_id': '2', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'}, {'conversation_id': '2', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'},
@@ -48,7 +49,8 @@ def test_generate_with_api_error():
       [{'text': '', 'status': 'API_ERROR'} for _ in range(len(QUERIES_LIST[0]))]
     ]
     client = 'openai'
-    assert generate(client, SYSTEM_PROMPT, QUERIES_LIST) == (
+    row_count = sum(len(inner_list) for inner_list in QUERIES_LIST)
+    assert generate(client, SYSTEM_PROMPT, QUERIES_LIST, row_count) == (
       [
         {'conversation_id': '1', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'}, {'conversation_id': '1', 'query': 'テスト質問', 'text': 'テスト回答', 'status': 'success'},
         {'conversation_id': '2', 'query': 'テスト質問', 'text': '', 'status': 'API_ERROR'}, {'conversation_id': '2', 'query': 'テスト質問', 'text': '', 'status': 'API_ERROR'},
@@ -70,11 +72,12 @@ def test_generate_with_api_error():
 
 def test_generate_continuous_api_errors():
   client = 'openai'
+  row_count = sum(len(inner_list) for inner_list in QUERIES_LIST)
   with (
     patch('src.generator._execute_requests', return_value=[{'text': '', 'status': 'API_ERROR'} for _ in range(len(QUERIES_LIST[0]))]) as mock_execute,
     pytest.raises(RuntimeError, match='API呼び出しが5回連続して失敗したため、処理を停止します')
   ):
-    generate(client, SYSTEM_PROMPT, QUERIES_LIST)
+    generate(client, SYSTEM_PROMPT, QUERIES_LIST, row_count)
     mock_execute.assert_has_calls(calls=[
       call(client, SYSTEM_PROMPT, [{'conversation_id': '1', 'query': 'テスト質問'}, {'conversation_id': '1', 'query': 'テスト質問'}]),
       call(client, SYSTEM_PROMPT, [{'conversation_id': '2', 'query': 'テスト質問'}, {'conversation_id': '2', 'query': 'テスト質問'}]),
