@@ -19,7 +19,7 @@ def test_send_messages_success(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': 'テスト回答',
+      'answer': 'テスト回答',
       'status': 'success'
     }
     mock_client.assert_called_once_with(api_key='testkey')
@@ -41,7 +41,7 @@ def test_send_messages_api_error(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': '',
+      'answer': '',
       'status': 'API_ERROR'
     }
     mock_client.assert_called_once_with(api_key='testkey')

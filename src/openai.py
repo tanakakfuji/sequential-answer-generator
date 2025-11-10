@@ -15,12 +15,12 @@ def send_messages(messages):
     )
   except APIError as e:
     result = {
-      'text': '',
+      'answer': '',
       'status': e.code.upper()
     }
   else:
     result = {
-      'text': response.choices[0].message.content,
+      'answer': response.choices[0].message.content,
       'status': 'success'
     }
 

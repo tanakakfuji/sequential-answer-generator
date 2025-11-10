@@ -17,7 +17,7 @@ def test_send_messages_success(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': 'テスト回答',
+      'answer': 'テスト回答',
       'status': 'success'
     }
     mock_chat.assert_called_once_with(model='testmodel', options={}, messages=messages)
@@ -37,7 +37,7 @@ def test_send_messages_request_error(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': '',
+      'answer': '',
       'status': 'REQUEST_ERROR'
     }
     mock_chat.assert_called_once_with(model='testmodel', options={}, messages=messages)
@@ -57,7 +57,7 @@ def test_send_messages_response_error(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': '',
+      'answer': '',
       'status': 'RESPONSE_ERROR'
     }
     mock_chat.assert_called_once_with(model='testmodel', options={}, messages=messages)
@@ -77,7 +77,7 @@ def test_send_messages_connection_error(monkeypatch):
       }
     ]
     assert send_messages(messages) == {
-      'text': '',
+      'answer': '',
       'status': 'CONNECTION_ERROR'
     }
     mock_chat.assert_called_once_with(model='testmodel', options={}, messages=messages)

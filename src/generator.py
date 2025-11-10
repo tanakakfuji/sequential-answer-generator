@@ -42,7 +42,7 @@ def _execute_requests(client, system_prompt, queries):
 
     if result['status'] == 'success':
       results.append(result)
-      messages.append({'role': 'assistant','content': result['text']})
+      messages.append({'role': 'assistant','content': result['answer']})
     else:
       # エラーの場合、以降の回答は空にする
       for _ in range(len(queries) - i):

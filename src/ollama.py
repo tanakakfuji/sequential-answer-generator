@@ -15,22 +15,22 @@ def send_messages(messages):
     )
   except RequestError as e:
     result = {
-      'text': '',
+      'answer': '',
       'status': 'REQUEST_ERROR'
     }
   except ResponseError as e:
     result = {
-      'text': '',
+      'answer': '',
       'status': 'RESPONSE_ERROR'
     }
   except ConnectionError as e:
     result = {
-      'text': '',
+      'answer': '',
       'status': 'CONNECTION_ERROR'
     }
   else:
     result = {
-      'text': response['message']['content'],
+      'answer': response['message']['content'],
       'status': 'success'
     }
 
