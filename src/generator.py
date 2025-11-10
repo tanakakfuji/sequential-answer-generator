@@ -49,7 +49,7 @@ def _execute_requests(client, system_prompt, queries):
         results.append(result)
       break
     # 古い対話履歴はメッセージから削除する
-    if i >= int(os.getenv('CONVERSATION_BUFFER_TURNS')) - 1:
+    if i >= int(os.getenv('CONVERSATION_BUFFER_TURNS')):
       messages.pop(2)
       messages.pop(1)
 

@@ -89,7 +89,7 @@ def test_generate_continuous_api_errors():
 
 
 def test_execute_requests_openai_success(monkeypatch):
-  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '2')
+  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '1')
   monkeypatch.setenv('REQUEST_INTERVAL_TIME', '5.0')
   with (
     patch('src.generator.request_openai', return_value={'answer': 'テスト回答', 'status': 'success'}) as mock_request,
@@ -135,7 +135,7 @@ def test_execute_requests_openai_success(monkeypatch):
     ])
 
 def test_execute_requests_ollama_success(monkeypatch):
-  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '2')
+  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '1')
   monkeypatch.setenv('REQUEST_INTERVAL_TIME', '5.0')
   with (
     patch('src.generator.request_ollama', return_value={'answer': 'テスト回答', 'status': 'success'}) as mock_request,
@@ -181,7 +181,7 @@ def test_execute_requests_ollama_success(monkeypatch):
     ])
 
 def test_execute_requests_openai_api_error(monkeypatch):
-  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '2')
+  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '1')
   monkeypatch.setenv('REQUEST_INTERVAL_TIME', '5.0')
   with (
     patch('src.generator.request_openai') as mock_request,
@@ -209,7 +209,7 @@ def test_execute_requests_openai_api_error(monkeypatch):
     ])
 
 def test_execute_requests_ollama_api_error(monkeypatch):
-  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '2')
+  monkeypatch.setenv('CONVERSATION_BUFFER_TURNS', '1')
   monkeypatch.setenv('REQUEST_INTERVAL_TIME', '5.0')
   with (
     patch('src.generator.request_ollama') as mock_request,
