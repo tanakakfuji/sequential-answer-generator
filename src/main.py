@@ -18,7 +18,7 @@ def main():
   outputs, error_count = generate(args.client, system_prompt, queries_list, row_count)
   save_csv(outputs, f'outputs/{args.output_dir}', 'results.csv')
   print(f'エラー件数: {error_count}')
-  print(f'outputs/{args.output_dir} に評価結果を出力しました')
+  print(f'outputs/{args.output_dir} に生成結果を出力しました')
 
 def _build_data(data):
   try:
